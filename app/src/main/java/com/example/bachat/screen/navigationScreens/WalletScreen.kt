@@ -55,7 +55,7 @@ fun WalletScreen(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
-                    .padding(horizontal = 10.dp),
+                    .padding(horizontal = 15.dp),
                 verticalAlignment = Alignment.Bottom,
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
@@ -64,7 +64,7 @@ fun WalletScreen(){
                     modifier = Modifier
                         .padding(top = 25.dp, end = 20.dp)
                         .size(30.dp))
-                Text("Wallet",color = Color.White, fontSize = 18.sp,)
+                Text("Wallet",color = Color.White, fontSize = 18.sp,fontWeight = FontWeight.W600)
                 Icon(
                     Icons.Default.Notifications,
                     contentDescription = "Localized description",

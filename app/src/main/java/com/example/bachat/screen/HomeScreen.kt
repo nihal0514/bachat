@@ -53,33 +53,24 @@ import com.example.bachat.R
 import com.example.bachat.navigation.BottomBar
 import com.example.bachat.navigation.NavigationGraph
 
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
-}
-
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun HomeScreen() {
+fun HomeScreen(mainNavController: NavController) {
     val navController: NavHostController = rememberNavController()
     var buttonsVisible = remember { mutableStateOf(true) }
 
     Scaffold(
         bottomBar = {
-
             BottomBar(
+                mainNavController=mainNavController,
                 navController = navController,
                 state = buttonsVisible,
                 modifier = Modifier,
             )
-
         }
     ) {
-
         NavigationGraph(navController)
     }
-
 }
 
 data class DemoTransactionModel(
@@ -88,5 +79,4 @@ data class DemoTransactionModel(
     val type: Boolean,
     val amount: Number,
     val image: Int
-
 )

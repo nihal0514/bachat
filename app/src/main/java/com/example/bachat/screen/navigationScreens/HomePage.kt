@@ -37,10 +37,10 @@ import com.example.bachat.utils.CustomBackgroundShape
 @Composable
 fun HomePage(){
     val transactions = mutableListOf<DemoTransactionModel>()
-    transactions.add(DemoTransactionModel("Upwork", "Today", true, 850, R.drawable.demoimage_1))
-    transactions.add(DemoTransactionModel("Transfer", "Yesterday", false, 85, R.drawable.demoimage_2))
-    transactions.add(DemoTransactionModel("Paypal", "Yesterday", true, 350, R.drawable.demoimage_3))
-    transactions.add(DemoTransactionModel("Youtube", "Yesterday", false, 250, R.drawable.demoimage_1))
+    transactions.add(DemoTransactionModel("Upwork", "Today", true, 850, R.drawable.profilesampleicon))
+    transactions.add(DemoTransactionModel("Transfer", "Yesterday", false, 85, R.drawable.profilesampleicon))
+    transactions.add(DemoTransactionModel("Paypal", "Yesterday", true, 350, R.drawable.profilesampleicon))
+    transactions.add(DemoTransactionModel("Youtube", "Yesterday", false, 250, R.drawable.profilesampleicon))
 
     Column(
         modifier = Modifier

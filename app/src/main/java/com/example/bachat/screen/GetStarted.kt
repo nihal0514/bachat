@@ -32,9 +32,8 @@ import com.example.bachat.R
 import com.example.bachat.utils.GetStartedAnimation
 
 @Composable
-fun GetStarted(){
+fun GetStarted(navController: NavController){
     Column(
-
         modifier= Modifier
             .fillMaxSize()
             .background(color = Color.White),
@@ -52,12 +51,15 @@ fun GetStarted(){
                .height(60.dp)
                .padding(horizontal = 25.dp)
                .shadow(elevation = 20.dp, shape = RoundedCornerShape(12.dp), ambientColor = Color(0xFF438883), spotColor = Color(0xFF438883)),
-           onClick={},
+           onClick={
+               navController.navigate("home_screen")
+           },
            colors = ButtonDefaults.buttonColors(
                containerColor = Color(0xFF438883)
            )
        ){
            Text(modifier= Modifier.clickable {
+
 
            },text= "Get Started", fontSize = 20.sp)
        }

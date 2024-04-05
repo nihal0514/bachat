@@ -1,5 +1,6 @@
 package com.example.bachat.navigation
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +37,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -42,11 +46,12 @@ import com.example.bachat.utils.BottomNavCurve
 
 @Composable
 fun BottomBar(
-    navController: NavHostController, state: MutableState<Boolean>, modifier: Modifier = Modifier
+   mainNavController:NavController, navController: NavHostController, state: MutableState<Boolean>, modifier: Modifier = Modifier
 ) {
     val screens = listOf(
         Destinations.HomeScreen, Destinations.Analysis, Destinations.Wallet,Destinations.Profile
     )
+    var isHomeScreen = remember{mutableStateOf(false)}
     Box (
         modifier= Modifier
             .fillMaxWidth()
@@ -56,22 +61,26 @@ fun BottomBar(
 
     ) {
         NavigationBar(
-            modifier = modifier.clip(BottomNavCurve()),
-
+         //   modifier = modifier.clip(BottomNavCurve()),
             containerColor = Color.White
         ) {
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
-
+            if(currentRoute=="home_screen"){
+                isHomeScreen.value= true
+            }else{
+                isHomeScreen.value= false
+            }
             screens.forEach { screen ->
 
                 NavigationBarItem(
+
                     icon = {
-                        Icon(painter = painterResource(id = screen.icon!!), contentDescription = "")
+                        Icon(painter = painterResource(id = if(currentRoute== screen.route){screen.onSelectedIcon!!}else{screen.icon!!}), contentDescription = "")
                     },
                     selected = currentRoute == screen.route,
                     onClick = {
-                        navController.navigate(screen.route) {
+                       navController.navigate(screen.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
                             }
@@ -85,20 +94,25 @@ fun BottomBar(
                 )
             }
         }
-        Column(
-            modifier= Modifier.fillMaxHeight()
-        ) {
-            Button(
-                modifier = Modifier
-                    .size(60.dp).clip(CircleShape).background(color = Color.Transparent),
-                contentPadding = PaddingValues(0.dp),
-                colors = ButtonDefaults.buttonColors(containerColor =Color(0xff438883) ),
-                onClick = {
+        if(isHomeScreen.value){
+            Column(
+                modifier= Modifier.fillMaxHeight()
+            ) {
+                Button(
+                    modifier = Modifier
+                        .size(60.dp).clip(CircleShape).background(color = Color.Transparent),
+                    contentPadding = PaddingValues(0.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor =Color(0xff438883) ),
+                    onClick = {
+                        mainNavController.navigate("add_expense_screen")
 
-                }) {
-                Icon(Icons.Default.Add, "",Modifier.height(30.dp).width(30.dp),Color.White)
+                    }) {
+
+                    Icon(Icons.Default.Add, "",Modifier.height(30.dp).width(30.dp),Color.White)
+                }
             }
         }
+
     }
 
 
